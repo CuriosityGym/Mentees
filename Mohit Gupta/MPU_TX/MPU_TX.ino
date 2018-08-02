@@ -89,7 +89,7 @@ MPU6050 mpu;
 
 
 
-#define LED_PIN 13 // (Arduino is 13, Teensy is 11, Teensy++ is 6)
+
 bool blinkState = false;
 
 // MPU control/status vars
@@ -217,7 +217,7 @@ void setup() {
     }
 
     // configure LED for output
-    pinMode(LED_PIN, OUTPUT);
+    
     pinMode(SW, INPUT_PULLUP);
 
     //Serial.begin(115200); /* Opening the Serial Communication */
@@ -341,6 +341,6 @@ void loop() {
       
         // blink LED to indicate activity
         blinkState = !blinkState;
-        digitalWrite(LED_PIN, blinkState);
+        
     }
 }

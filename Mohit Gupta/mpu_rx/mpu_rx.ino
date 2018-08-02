@@ -13,9 +13,9 @@ void setup()
 {
   //pinMode(13,OUTPUT);
   pinMode (1, OUTPUT);//M R
-pinMode (2, OUTPUT); //M R
-pinMode (3, OUTPUT); //M L
-pinMode (4, OUTPUT); //M L
+  pinMode (2, OUTPUT); //M R
+  pinMode (3, OUTPUT); //M L
+  pinMode (4, OUTPUT); //M L
 
   while (!Serial);
   Serial.begin(115200);
@@ -30,94 +30,85 @@ pinMode (4, OUTPUT); //M L
 
 byte pipeNum = 0; //variable to hold which reading pipe sent data
 typedef struct Value {
-        float x;
-        float y;
-        float z;
-        int joystick_x_info;
-        int joystick_y_info;
-        int button_state_info;
-      } Value;
-      Value value;
+  float x;
+  float y;
+  float z;
+  int joystick_x_info;
+  int joystick_y_info;
+  int button_state_info;
+} Value;
+Value value;
 void loop()
 {
-  t1 = millis();
-  /*digitalWrite(13,HIGH);
-    delay(500);
-    digitalWrite(13,LOW);
-    delay(500);
-  */
   
-    if (radio.available(&pipeNum))
-    {
-      //char text[32] = {0};
-      //int text[3];
-      
-      //radio.read(&text, sizeof(text));
-      radio.read(&value, sizeof(value));
-      //int coordinates[] ={value.x,value.y};
-      Serial.print(t1);
-      Serial.print("\t");
-      Serial.print(value.x);
-      Serial.print("\t");
-      Serial.print(value.y);
-      Serial.print("\t");
-      Serial.print(value.z);
-     Serial.print("\t");
-      Serial.print(value.joystick_x_info);
-      Serial.print("\t");
-      Serial.print(value.joystick_y_info);
-      Serial.print("\t");
-       Serial.println(value.button_state_info);
-      t0 = t1;
 
-      //Serial.println("X-acceleration");
-      //int number=atol(text);
-      //Serial.println(number);
-      //Serial.println((int)text);
-      //Serial.println(value);
-      //delay(100);
-
-  if (value.joystick_x_info<x_centre){
-digitalWrite (1, LOW);
-digitalWrite (2, HIGH);
-digitalWrite (3, HIGH);
-digitalWrite (4, LOW);
-Serial.println( "LEFT");
-
-}
-else if (value.joystick_x_info>x_centre){
-  digitalWrite (1, HIGH);
-digitalWrite (2, LOW);
-digitalWrite (3, LOW);
-digitalWrite (4, HIGH);
-Serial.println( "Right");
-  
-}
-else if (value.joystick_y_info>y_centre){
-digitalWrite (1, HIGH);
-digitalWrite (2, LOW);
-digitalWrite (3, HIGH);
-digitalWrite (4, LOW);
-Serial.println( "Forward");
-}
-else if (value.joystick_y_info<y_centre){
-digitalWrite (1, LOW);
-digitalWrite (2, HIGH);
-digitalWrite (3, LOW);
-digitalWrite (4, HIGH);
-Serial.println( "Back");
-}
-else {
-digitalWrite (1, LOW);
-digitalWrite (2, LOW);
-digitalWrite (3, LOW);
-digitalWrite (4, LOW);
-}
-    }
-    else
+  if (radio.available(&pipeNum))
   {
-    //Serial.println("No radio available");
-  }  }
+    //char text[32] = {0};
+    //int text[3];
+
+    //radio.read(&text, sizeof(text));
+    radio.read(&value, sizeof(value));
+    //int coordinates[] ={value.x,value.y};
+    Serial.print(t1);
+    Serial.print("\t");
+    Serial.print(value.x);
+    Serial.print("\t");
+    Serial.print(value.y);
+    Serial.print("\t");
+    Serial.print(value.z);
+    Serial.print("\t");
+    Serial.print(value.joystick_x_info);
+    Serial.print("\t");
+    Serial.print(value.joystick_y_info);
+    Serial.print("\t");
+    Serial.println(value.button_state_info);
+    
+
+   
+
+    if (value.joystick_x_info < x_centre) {
+      digitalWrite (1, LOW);
+      digitalWrite (2, HIGH);
+      digitalWrite (3, HIGH);
+      digitalWrite (4, LOW);
+      Serial.println( "LEFT");
+
+    }
+    else if (value.joystick_x_info > x_centre) {
+      digitalWrite (1, HIGH);
+      digitalWrite (2, LOW);
+      digitalWrite (3, LOW);
+      digitalWrite (4, HIGH);
+      Serial.println( "Right");
+
+    }
+    else if (value.joystick_y_info > y_centre) {
+      digitalWrite (1, HIGH);
+      digitalWrite (2, LOW);
+      digitalWrite (3, HIGH);
+      digitalWrite (4, LOW);
+      Serial.println( "Forward");
+    }
+    else if (value.joystick_y_info < y_centre) {
+      digitalWrite (1, LOW);
+      digitalWrite (2, HIGH);
+      digitalWrite (3, LOW);
+      digitalWrite (4, HIGH);
+      Serial.println( "Back");
+    }
+    else {
+      digitalWrite (1, LOW);
+      digitalWrite (2, LOW);
+      digitalWrite (3, LOW);
+      digitalWrite (4, LOW);
+    }
+  }
+  else
+  {
+    Serial.println("No radio available");
+  }
+}
 
 
 
